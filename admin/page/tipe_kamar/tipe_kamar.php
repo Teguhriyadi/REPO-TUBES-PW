@@ -36,7 +36,7 @@
 
 		let xhttp = new XMLHttpRequest();
 
-		xhttp.open("GET", "http://localhost/TUBES-PW/admin/page/tipe_kamar/ajax.php?request=1", true);
+		xhttp.open("GET", "http://localhost/REPO-TUBES-PW/admin/page/tipe_kamar/ajax.php?request=1", true);
 
 		xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 

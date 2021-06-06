@@ -74,7 +74,7 @@
 
 			var xhttp = new XMLHttpRequest();
 
-			xhttp.open("POST", "http://localhost/TUBES-PW/admin/page/tipe_kamar/ajax.php?request=2", true);
+			xhttp.open("POST", "http://localhost/REPO-TUBES-PW/admin/page/tipe_kamar/ajax.php?request=2", true);
 
 			xhttp.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
