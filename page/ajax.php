@@ -1,18 +1,16 @@
 <?php
 
-include '../../../config/koneksi.php';
+session_start();
+include '../config/koneksi.php';
 
 $request = 3;
 
-// Read $_GET value
 if(isset($_GET['request'])){
 	$request = $_GET['request'];
 }
 
-// Fetch records 
 if($request == 1){
 
-   // Select record 
 	$sql = "SELECT * FROM kamar JOIN tipe_kamar ON kamar.id_tipe = tipe_kamar.id_tipe ORDER BY kamar.no_kamar ASC";
 	$employeeData = mysqli_query($con,$sql);
 
@@ -33,18 +31,19 @@ if($request == 1){
 	exit;
 }
 
-// Insert record
 if($request == 2){
 
-   // Read POST data
 	$data = json_decode(file_get_contents("php://input"));
 
-	$no_kamar = $data->no_kamar;
-	$id_tipe = $data->id_tipe;
-	$status = $data->status;
-	$lantai = $data->lantai;
+	$no_iden = $data->no_identitas;
+	$nama_tamu = $data->nama_tamu;
+	$email_tamu = $data->email_tamu;
+	$telp_tamu = $data->telp_tamu;
+	$password_tamu = $data->password_tamu;
+
+	$password_tamu = password_hash($password_tamu, PASSWORD_DEFAULT);
 	
-	$sql = "INSERT INTO kamar VALUES ('$no_kamar', '$id_tipe', '$status', '$lantai')";
+	$sql = "INSERT INTO tamu VALUES ('$no_iden', '$nama_tamu', '$email_tamu', '$telp_tamu', '$password_tamu')";
 	if(mysqli_query($con,$sql)){
 		echo 1; 
 	}else{
@@ -56,17 +55,26 @@ if($request == 2){
 
 if ($request == 3) {
 
-	$no_kamar = $_GET['no_kamar'];
+	$data = json_decode(file_get_contents("php://input"));
 
-	$sql = $con->query("DELETE FROM kamar WHERE no_kamar = '$no_kamar'");
+	$email_tamu = $data->email_tamu;
+	$password_tamu = $data->password_tamu;
 
-	if($sql){
-	    echo 1; 
-	}else{
-	    echo 0;
+	$sql = $con->query("SELECT * FROM tamu WHERE email_tamu = '$email_tamu'");
+
+	if (mysqli_num_rows($sql)  === 1) {
+		$array = mysqli_fetch_assoc($sql);
+
+		if (password_verify($password_tamu, $array['password_tamu'])) {
+			$_SESSION['tamu'] = true;
+			$_SESSION['nama_tamu'] = $array['nama_tamu'];
+			echo 1;
+		} else {
+			echo 0;
+		}
+	} else {
+		echo 0;
 	}
-
-	exit;
 }
 
 if ($request == 4) {

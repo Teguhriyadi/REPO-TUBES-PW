@@ -58,7 +58,7 @@ if($request == 2){
 	$namafilebaru .= '.';
 	$namafilebaru .= $ekstensiGambar;
 
-	move_uploaded_file($tmpname, '../../img/' . $namafilebaru);
+	move_uploaded_file($tmpname, '../../image/' . $namafilebaru);
 
 	$response = 0;
 
@@ -78,20 +78,19 @@ if ($request == 3) {
 	$id = $_GET['id_tipe'];
 
 	$sql = $con->query("SELECT * FROM tipe_kamar WHERE id_tipe = '$id'");
-    $data_gambar = $sql->fetch_array();
+    $data_gambar = $sql->fetch_assoc();
     $image = $data_gambar['image'];
         
-    if (file_exists("../../img/$image")) {
-        unlink("../../img/$image");
+    if (file_exists("../../image/".$image)) {
+     	unlink("../../image/".$image);
     }
 
-	$sql = $con->query("DELETE FROM tipe_kamar WHERE id_tipe = '$id'");
+    $sql = $con->query("DELETE FROM tipe_kamar WHERE id_tipe = $id");
 
-
-	if($sql){
-		echo 1; 
-	}else{
-		echo 0;
+    if($sql){
+	 	echo 1; 
+	} else{
+	 	echo 0;
 	}
 
 	exit;
@@ -109,8 +108,10 @@ if ($request == 4) {
 			'id_tipe' => $ambil['id_tipe'],
 			'tipe_kamar' => $ambil['tipe_kamar'],
 			'deskripsi' => $ambil['deskripsi'],
+			'fasilitas' => $ambil['fasilitas'],
 			'harga' => $ambil['harga'],
-			'jumlah_bed' => $ambil['jumlah_bed']
+			'jumlah_bed' => $ambil['jumlah_bed'],
+			'image' => $ambil['image']
 			);
 	}
 
@@ -119,21 +120,33 @@ if ($request == 4) {
 }
 
 if ($request == 5) {
-	$data = json_decode(file_get_contents("php://input"));
 
-	$id_tipe = $data->id_tipe;
-	$tipe_kamar = $data->tipe_kamar;
-	$deskripsi = $data->deskripsi;
-	$harga = $data->harga;
-	$jumlah_bed = $data->jumlah_bed;
+	$id_tipe = $_POST['id_tipe'];
 
-	$sql = $con->query("UPDATE tipe_kamar SET tipe_kamar = '$tipe_kamar', deskripsi = '$deskripsi', harga = '$harga', jumlah_bed = '$jumlah_bed' WHERE id_tipe = $id_tipe");
+	/*
+	$namafile = $_FILES['image']['name'];
+	$ukuranfile = $_FILES['image']['size'];
+	$error = $_FILES['image']['error'];
+	$tmpname = $_FILES['image']['tmp_name'];
 
-	if($sql){
-		echo 1; 
-	}else{
-		echo 0;
+	$ekstensiGambarValid = ['jpg','jpeg','png'];
+	$ekstensiGambar = explode('.', $namafile);
+	$ekstensiGambar = strtolower(end($ekstensiGambar));
+
+	$namafilebaru = uniqid();
+	$namafilebaru .= '.';
+	$namafilebaru .= $ekstensiGambar;
+
+	move_uploaded_file($tmpname, '../../image/' . $namafilebaru);
+	*/
+	$response = 0;
+
+	$query = $con->query("UPDATE tipe_kamar SET harga = '5000' WHERE id_tipe = '$id_tipe' ') ");
+
+	if ($query != 0) {
+		$response = 1;
 	}
 
+	echo $response;
 	exit;
 }

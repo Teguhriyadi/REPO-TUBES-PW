@@ -36,6 +36,11 @@
 			break;
 		// end
 
+		// tamu
+		case 'tamu':
+			include 'page/tamu/data_tamu.php';
+			break;
+
 		// users
 		case 'users':
 			include 'page/users/data_users.php';

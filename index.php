@@ -1,3 +1,7 @@
+<?php
+	session_start();
+	include 'config/koneksi.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,17 +42,19 @@
 			<ul class="menu-list">
 				<li><a href="?page=dashboard">Dashboard</a></li>
 				<li><a href="">Kamar</a>
-					<ul>
-						<li><a href="standard_room.html">Standard Room</a></li>
-						<li><a href="superior_room.html">Superior Room</a></li>
-						<li><a href="deluxe_room.html">Deluxe Room</a></li>
-						<li><a href="Junior_room.html">Junior Room</a></li>
+					<ul id="tampil_menu_kamar">
+						
 					</ul>
 				</li>
 				<li><a href="">Booking</a>
 					<ul>
-						<li><a href="booking.html">Booking Kamar</a></li>
-						<li><a href="">Register</a></li>
+						<li><a href="?page=booking">Booking Kamar</a></li>
+						<?php if (isset($_SESSION['tamu'])) : ?>
+							<li><a href="?page=logout">Logout</a></li>
+						<?php else : ?>	
+							<li><a href="?page=login">Login</a></li>
+							<li><a href="?page=register">Register</a></li>
+						<?php endif ?>
 					</ul>
 				</li>
 				<li><a href="?page=contact">Contact Person</a></li>
@@ -69,7 +75,23 @@
 		});
 	</script>
 	<script type="text/javascript">
-		var counter = 1;
+		function tampil_tipe_kamar() {
+			let xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+					let data = JSON.parse(xhttp.responseText);
+					data.forEach(function(element) {
+						document.getElementById("tampil_menu_kamar").innerHTML += '<li><a href="?page=pilih_kamar&id_tipe_kamar='+element.id_tipe+'">'+element.tipe_kamar+'</a></li>';
+					});
+				}
+			};
+			xhttp.open("GET", "http://localhost/REPO-TUBES-PW/admin/page/tipe_kamar/ajax.php?request=1", true);
+			xhttp.send();
+		}
+
+		tampil_tipe_kamar();
+
+		let counter = 1;
 		setInterval(function(){
 			document.getElementById('radio' + counter).checked = true;
 			counter++;

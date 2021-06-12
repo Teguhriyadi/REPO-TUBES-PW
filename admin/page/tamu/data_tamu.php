@@ -1,60 +1,22 @@
 <div class="header">
-	<span class="icon"><i class="fa fa-bars"></i></span>
-	<span class="title">Tipe Kamar</span>
+	<span class="icon"><i class="fa fa-user"></i></span>
+	<span class="title">Tamu</span>
 </div>
 <br>
 
 <div class="details">
 	<div class="recentOrders">
 		<div class="cardHeader">
-			<h2><i class="fa fa-plus"></i> Tambah Data</h2>
-		</div>
-		<br>
-		<hr>
-		<br>
-		<div class="form-group">
-			<label for="no_kamar"> No. Kamar </label>
-			<input type="text" id="no_kamar" class="form-control" placeholder="Masukkan No. Kamar">
-		</div>
-		<div class="form-group">
-			<label for="tipe_kamar"> Tipe Kamar </label>
-			<select class="form-control" id="id_tipe">
-				<option value="">- Pilih -</option>
-			</select>
-		</div>
-		<div class="form-group">
-			<label for="status"> Status </label>
-			<input type="text" id="status" class="form-control" placeholder="Status">
-		</div>
-		<div class="form-group">
-			<label for="lantai"> Lantai </label>
-			<input type="text" id="lantai" class="form-control" placeholder="Masukkan Lantai">
-		</div>
-		<div class="form-group">
-			<button onclick="insert()" id="btn" class="btn-primary">
-				<i class="fa fa-plus"></i> Tambah
-			</button>
-			<button id="btn_update" onclick="update()" class="btn-primary" hidden>
-				<i class="fa fa-save"></i> Simpan
-			</button>
-		</div>
-	</div>
-</div>
-
-<div class="details">
-	<div class="recentOrders">
-		<div class="cardHeader">
-			<h2>Data Kamar</h2>
-			<a href="?page=tambah_tipe_kamar" class="btn"><i class="fa fa-plus"></i> Tambah Data</a>
+			<h2>Data Tamu</h2>
 		</div>
 		<table id="data">
 			<thead>
 				<tr>
 					<td>No.</td>
-					<td>Tipe Kamar</td>
-					<td>Harga</td>
-					<td>Jumlah Bed</td>
-					<td>Aksi</td>
+					<td>No. Identitas</td>
+					<td>Nama Tamu</td>
+					<td>Email Tamu</td>
+					<td>Telp Tamu</td>
 				</tr>
 			</thead>
 			<tbody id="table">
@@ -70,7 +32,7 @@
 
 		let xhttp = new XMLHttpRequest();
 
-		xhttp.open("GET", "http://localhost/REPO-TUBES-PW/admin/page/kamar/ajax.php?request=1", true);
+		xhttp.open("GET", "http://localhost/REPO-TUBES-PW/admin/page/tamu/ajax.php?request=1", true);
 
 		xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
@@ -91,16 +53,16 @@
 
 						let NewRow = empTable.insertRow(-1);
 						let no = NewRow.insertCell(0);
-						let tipe_kamar = NewRow.insertCell(1);
-						let status = NewRow.insertCell(2);
-						let lantai = NewRow.insertCell(3);
-						let aksi_cell = NewRow.insertCell(4);
+						let no_identitas = NewRow.insertCell(1);
+						let nama_tamu = NewRow.insertCell(2);
+						let email_tamu = NewRow.insertCell(3);
+						let telp_tamu = NewRow.insertCell(4);
 
 						no.innerHTML = val['nomer'];
-						tipe_kamar.innerHTML = val['tipe_kamar'];
-						status.innerHTML = val['status'];
-						lantai.innerHTML = val['lantai'];
-						aksi_cell.innerHTML = '<button class="btn-warning" style="text-decoration: none;" onclick="edit('+ val['no_kamar'] +')" id="btn_edit"><i class="fa fa-edit"></i> Edit</button>  <button class="btn-danger" onclick="hapus('+ val['no_kamar'] +')"><i class="fa fa-trash-o"></i> Hapus</button>';
+						no_identitas.innerHTML = val['no_identitas'];
+						nama_tamu.innerHTML = val['nama_tamu'];
+						email_tamu.innerHTML = val['email_tamu'];
+						telp_tamu.innerHTML = val['telp_tamu'];
 					}
 				}
 			}

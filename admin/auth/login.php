@@ -85,8 +85,8 @@
 			xhttp.setRequestHeader("Content-Type", "application/json");
 			xhttp.send(JSON.stringify(data));
 		} else {
-      alert("Data Tidak Boleh Kosong");
-    }
+      		alert("Data Tidak Boleh Kosong");
+    	}
 	}
 	</script>
 
