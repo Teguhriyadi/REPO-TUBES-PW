@@ -7,7 +7,8 @@
 <div class="details">
 	<div class="recentOrders">
 		<div class="cardHeader">
-			<h2>Tambah Data</h2>
+			<h2 id="label_tambah"><i class="fa fa-plus"></i> Tambah Data</h2>
+			<h2 id="label_update" hidden><i class="fa fa-edit"></i> Edit Data</h2>
 		</div>
 		<br>
 		<hr>
@@ -207,10 +208,14 @@
 		let deskripsi = document.getElementById('deskripsi');
 		let harga = document.getElementById('harga');
 		let jumlah_bed = document.getElementById('jumlah_bed');
+		let label_tambah = document.getElementById('label_tambah');
+		let label_update = document.getElementById('label_update');
 		let btn = document.getElementById('btn');
 		let btn_edit = document.getElementById('btn_edit');
 		let btn_update = document.getElementById('btn_update');
 
+		label_tambah.hidden = true;
+		label_update.hidden = false;
 		btn.hidden = true;
 		btn_update.hidden = false;
 

@@ -43,15 +43,15 @@ include '../config/koneksi.php';
 					</a>
 				</li>
 				<li>
-					<a href="?page=tamu">
-						<span class="icon"><i class="fa fa-user"></i></span>
-						<span class="title">Tamu</span>
-					</a>
-				</li>
-				<li>
 					<a href="?page=kamar">
 						<span class="icon"><i class="fa fa-envelope-open"></i></span>
 						<span class="title">Kamar</span>
+					</a>
+				</li>
+				<li>
+					<a href="?page=tamu">
+						<span class="icon"><i class="fa fa-user"></i></span>
+						<span class="title">Tamu</span>
 					</a>
 				</li>
 				<li>

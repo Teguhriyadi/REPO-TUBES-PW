@@ -26,7 +26,6 @@ if($request == 1){
 			"password_tamu" => $row['password_tamu']
 		);
 	}
-
 	echo json_encode($response);
 	exit;
 }

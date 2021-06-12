@@ -19,6 +19,10 @@
 				- Multiplug
 				- Kunci pintu elektronik
 			</p>
+			<hr>
+			<a href="?page=booking">
+				booking
+			</a>
 		</div>
 	</div>
 </div>

@@ -77,7 +77,7 @@ if ($request == 3) {
 	
 	$id = $_GET['id_tipe'];
 
-	$sql = $con->query("SELECT * FROM tipe_kamar WHERE id_tipe = '$id'");
+	$sql = $con->query("SELECT * FROM tipe_kamar WHERE id_tipe = $id");
     $data_gambar = $sql->fetch_assoc();
     $image = $data_gambar['image'];
         
@@ -85,9 +85,9 @@ if ($request == 3) {
      	unlink("../../image/".$image);
     }
 
-    $sql = $con->query("DELETE FROM tipe_kamar WHERE id_tipe = $id");
+    $data = $con->query("DELETE FROM tipe_kamar WHERE id_tipe = $id");
 
-    if($sql){
+    if($data){
 	 	echo 1; 
 	} else{
 	 	echo 0;
