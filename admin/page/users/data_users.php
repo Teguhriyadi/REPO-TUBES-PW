@@ -1,6 +1,6 @@
 <div class="header">
-	<span class="icon"><i class="fa fa-bars"></i></span>
-	<span class="title">Tipe Kamar</span>
+	<span class="icon"><i class="fa fa-user"></i></span>
+	<span class="title">Users</span>
 </div>
 <br>
 
@@ -13,14 +13,14 @@
 		<br>
 		<hr>
 		<br>
-		<input type="hidden" id="id_tipe">
+		<input type="hidden" id="id_users">
 		<div class="form-group">
 			<label for="username"> Username </label>
-			<input type="text" class="form-control" id="username" placeholder="Masukkan Tipe Kamar" autocomplete="off">
+			<input type="text" class="form-control" id="username" placeholder="Masukkan Username" autocomplete="off">
 		</div>
 		<div class="form-group">
 			<label for="password"> Password </label>
-			<textarea class="form-control" id="password" placeholder="Masukkan Password" rows="5"></textarea>
+			<input type="password" class="form-control" id="password" placeholder="Masukkan Password">
 		</div>
 		<div class="form-group">
 			<label for="level"> Level </label>
@@ -44,8 +44,7 @@
 <div class="details">
 	<div class="recentOrders">
 		<div class="cardHeader">
-			<h2>Data Tipe Kamar</h2>
-			<a href="?page=tambah_tipe_kamar" class="btn"><i class="fa fa-plus"></i> Tambah Data</a>
+			<h2>Data Users</h2>
 		</div>
 		<table id="data">
 			<thead>
@@ -53,7 +52,6 @@
 					<td>No.</td>
 					<td>Username</td>
 					<td>Created At</td>
-					<td>Last Login</td>
 					<td>Level</td>
 					<td>Aksi</td>
 				</tr>
@@ -94,15 +92,13 @@
 						let no = NewRow.insertCell(0);
 						let username = NewRow.insertCell(1);
 						let created_at = NewRow.insertCell(2);
-						let last_login = NewRow.insertCell(3);
-						let level = NewRow.insertCell(4);
-						let aksi_cell = NewRow.insertCell(5);
+						let level = NewRow.insertCell(3);
+						let aksi_cell = NewRow.insertCell(4);
 						let session = "<?= $_SESSION['username'] ?>";
 
 						no.innerHTML = val['no'];
 						username.innerHTML = val['username'];
-						created_at.innerHTML = session;
-						last_login.innerHTML = val['last_login'];
+						created_at.innerHTML = val['created_at'];
 
 						if (val['level'] == 1) {
 							level.innerHTML = 'Administrator';
@@ -113,9 +109,9 @@
 						}
 
 						if (val['username'] == session) {
-							aksi_cell.innerHTML = '<button class="btn-warning" style="text-decoration: none;" onclick="edit('+ val['id_tipe'] +')" id="btn_edit"><i class="fa fa-edit"></i> Edit</button>';
+							aksi_cell.innerHTML = '<button class="btn-warning" style="text-decoration: none;" onclick="edit('+ val['id_users'] +')" id="btn_edit"><i class="fa fa-edit"></i> Edit</button>';
 						} else {
-							aksi_cell.innerHTML = '<button class="btn-warning" style="text-decoration: none;" onclick="edit('+ val['id_tipe'] +')" id="btn_edit"><i class="fa fa-edit"></i> Edit</button> <button class="btn-danger" onclick="hapus('+ val['id_users'] +')"><i class="fa fa-trash-o"></i> Hapus</button>';
+							aksi_cell.innerHTML = '<button class="btn-warning" style="text-decoration: none;" onclick="edit('+ val['id_users'] +')" id="btn_edit"><i class="fa fa-edit"></i> Edit</button> <button class="btn-danger" onclick="hapus('+ val['id_users'] +')"><i class="fa fa-trash-o"></i> Hapus</button>';
 						}
 					}
 				}
@@ -127,52 +123,40 @@
 	}
 
 	function insert() {
-		let files = document.getElementById("image").files;
-		let tipe_kamar = document.getElementById("tipe_kamar").value;
-		let deskripsi = document.getElementById("deskripsi").value;
-		let fasilitas = document.getElementById("fasilitas").value;
-		let harga = document.getElementById("harga").value;
-		let jumlah_bed = document.getElementById("jumlah_bed").value;
 
-		if (files.length > 0) {
-			var formData = new FormData();
+		let username = document.getElementById('username').value;
+		let password = document.getElementById('password').value;
+		let level = document.getElementById('level').value;
 
-			formData.append("image", files[0]);
-			formData.append("tipe_kamar", tipe_kamar);
-			formData.append("deskripsi", deskripsi);
-			formData.append("fasilitas", fasilitas);
-			formData.append("harga", harga);
-			formData.append("jumlah_bed", jumlah_bed);
+		if( username != '' && password !='' && level != '' ){
 
-			var xhttp = new XMLHttpRequest();
+			let data = { username : username, password : password, level : level };
+			let xhttp = new XMLHttpRequest();
+	
+			xhttp.open("POST", "http://localhost/REPO-TUBES-PW/admin/page/users/ajax.php?request=2", true);
 
-			xhttp.open("POST", "http://localhost/REPO-TUBES-PW/admin/page/tipe_kamar/ajax.php?request=2", true);
-
-			xhttp.onreadystatechange = function () {
+			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					var response = this.responseText;
 
-					if (response == 1) {
-						alert("Upload Sukses");
+					let response = this.responseText;
+					if(response == 1){
+						alert("Data Berhasil di Tambahkan");
+
 
 						loadUsers();
 
-						document.getElementById("tipe_kamar").value = "";
-						document.getElementById("deskripsi").value = "";
-						document.getElementById("fasilitas").value = "";
-						document.getElementById("harga").value = "";
-						document.getElementById("jumlah_bed").value = "";
-						document.getElementById("image").value = "";
+						document.getElementById("username").value = "";
+						document.getElementById("password").value = "";
+						document.getElementById("level").value = "";
 
 					} else {
-						alert("Upload Gagal");
+						alert("Data Gagal di Tambahkan");
 					}
 				}
 			};
 
-			xhttp.send(formData);
-		} else {
-			alert("Pilih Gambar");
+			xhttp.setRequestHeader("Content-Type", "application/json");
+			xhttp.send(JSON.stringify(data));
 		}
 	}
 
@@ -190,7 +174,11 @@
 
 					let response = this.responseText;
 					if(response == 1){
-						alert("Delete successfully.");
+						alert("Data Berhasil di Hapus");
+
+						loadUsers();
+					} else {
+						alert("Data Gagal di Hapus");
 
 						loadUsers();
 					}
@@ -203,11 +191,11 @@
 		}
 	}
 
-	function edit(id_tipe) {
-		let tipe_kamar = document.getElementById('tipe_kamar');
-		let deskripsi = document.getElementById('deskripsi');
-		let harga = document.getElementById('harga');
-		let jumlah_bed = document.getElementById('jumlah_bed');
+	function edit(id_users) {
+		let username = document.getElementById('username');
+		let password = document.getElementById('password');
+		let level = document.getElementById('level');
+
 		let label_tambah = document.getElementById('label_tambah');
 		let label_update = document.getElementById('label_update');
 		let btn = document.getElementById('btn');
@@ -220,7 +208,7 @@
 		btn_update.hidden = false;
 
 		let xhttp = new XMLHttpRequest();
-		xhttp.open("GET", "http://localhost/REPO-TUBES-PW/admin/page/tipe_kamar/ajax.php?request=4&id_tipe="+id_tipe, true);
+		xhttp.open("GET", "http://localhost/REPO-TUBES-PW/admin/page/users/ajax.php?request=4&id_users="+id_users, true);
 
 		xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
@@ -233,12 +221,10 @@
 					if (response.hasOwnProperty(key)) {
 						let val = response[key];
 
-						tipe_kamar.value = val['tipe_kamar'];
-						deskripsi.value = val['deskripsi'];
-						fasilitas.value = val['fasilitas'];
-						harga.value = val['harga']; 
-						jumlah_bed.value = val['jumlah_bed'];
-						document.getElementById("id_tipe").value = val['id_tipe'];
+						username.value = val['username'];
+						password.value = val['password'];
+						level.value = val['level'];
+						document.getElementById("id_users").value = val['id_users'];
 
 					}
 				} 
@@ -251,40 +237,42 @@
 
 	function update() {
 
-		let id_tipe = document.getElementById('id_tipe').value;
-		let tipe_kamar = document.getElementById('tipe_kamar').value;
-		let deskripsi = document.getElementById('deskripsi').value;
-		let fasilitas = document.getElementById('fasilitas').value;
-		let harga = document.getElementById('harga').value;
-		let jumlah_bed = document.getElementById('jumlah_bed').value;
+		let id_users = document.getElementById('id_users').value;
+		let username = document.getElementById('username').value;
+		let password = document.getElementById('password').value;
+		let level = document.getElementById('level').value;
+
 		let btn_edit = document.getElementById('btn_edit');
 		let btn_update = document.getElementById('btn_update');
 
-		if(tipe_kamar != '' && deskripsi !='' && harga != '' && jumlah_bed != ''){
+		if(username != '' && password !='' && level != ''){
 
-			let data = { id_tipe : id_tipe, tipe_kamar : tipe_kamar, deskripsi : deskripsi, fasilitas : fasilitas, harga : harga, jumlah_bed : jumlah_bed };
+			let data = { id_users : id_users, username : username, password : password, level : level };
 
 			let xhttp = new XMLHttpRequest();
 
-			xhttp.open("POST", "http://localhost/REPO-TUBES-PW/admin/page/tipe_kamar/ajax.php?request=5", true);
+			xhttp.open("POST", "http://localhost/REPO-TUBES-PW/admin/page/users/ajax.php?request=5", true);
 
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 
 					let response = this.responseText;
 					if(response == 1){
-						alert("Update successfully.");
+						alert("Data Berhasil di Ubah");
 
 						loadUsers();
 
-						document.getElementById("id_tipe").value = '';
-						document.getElementById("tipe_kamar").value = '';
-						document.getElementById("deskripsi").value = '';
-						document.getElementById("harga").value = '';
-						document.getElementById("jumlah_bed").value = '';
+						document.getElementById("id_users").value = '';
+						document.getElementById("username").value = '';
+						document.getElementById("password").value = '';
+						document.getElementById("level").value = '';
 
+						label_tambah.hidden = false;
+						label_update.hidden = true;
 						btn.hidden = false;
 						btn_update.hidden = true;
+					} else {
+						alert("Data Gagal di Ubah")
 					}
 				}
 			};
@@ -296,5 +284,6 @@
 			alert('Data Tidak Boleh Kosong');
 		}
 	}
+
 	loadUsers();
 </script>

@@ -67,6 +67,7 @@ if ($request == 3) {
 
 		if (password_verify($password_tamu, $array['password_tamu'])) {
 			$_SESSION['tamu'] = true;
+			$_SESSION['email_tamu'] = $array['email_tamu'];
 			$_SESSION['nama_tamu'] = $array['nama_tamu'];
 			echo 1;
 		} else {
@@ -111,6 +112,34 @@ if ($request == 5) {
 	    echo 1; 
 	}else{
 	    echo 0;
+	}
+
+	exit;
+}
+
+if($request == 6){
+
+	$data = json_decode(file_get_contents("php://input"));
+
+	$email_tamu = $data->email_tamu;
+	$check_in = $data->check_in;
+	$check_out = $data->check_out;
+	$jumlah_tamu = $data->jumlah_tamu;
+	$pesan = $data->pesan;
+	$id_tipe = $data->id_tipe;
+	$no_kamar = $data->no_kamar;
+	$status = "Pending";
+	$total = 10;
+
+	$con->query("INSERT INTO reservasi VALUES ('', '$email_tamu', '$check_in', '$check_out', '$jumlah_tamu', '$pesan', '$id_tipe', '$no_kamar', '$status', '$total')");
+	$kode_reservasi = $con->insert_id;
+
+	$query = $con->query("INSERT INTO reservasi_ruangan VALUES ('','$kode_reservasi', '$no_kamar') ");
+
+	if ($query != 0) {
+		echo 1;
+	} else {
+		echo 0;
 	}
 
 	exit;

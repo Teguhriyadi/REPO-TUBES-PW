@@ -1,13 +1,13 @@
 <div class="header">
-	<span class="icon"><i class="fa fa-user"></i></span>
-	<span class="title">Tamu</span>
+	<span class="icon"><i class="fa fa-money"></i></span>
+	<span class="title">Transaksi</span>
 </div>
 <br>
 
 <div class="details">
 	<div class="recentOrders">
 		<div class="cardHeader">
-			<h2>Data Tamu</h2>
+			<h2>Data Transaksi</h2>
 		</div>
 		<table id="data">
 			<thead>
@@ -32,7 +32,7 @@
 
 		let xhttp = new XMLHttpRequest();
 
-		xhttp.open("GET", "http://localhost/REPO-TUBES-PW/admin/page/tamu/ajax.php?request=1", true);
+		xhttp.open("GET", "http://localhost/REPO-TUBES-PW/admin/page/transaksi/ajax.php?request=1", true);
 
 		xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
@@ -58,7 +58,7 @@
 						let email_tamu = NewRow.insertCell(3);
 						let telp_tamu = NewRow.insertCell(4);
 
-						no.innerHTML = val['nomer'];
+						no.innerHTML = val['no'];
 						no_identitas.innerHTML = val['no_identitas'];
 						nama_tamu.innerHTML = val['nama_tamu'];
 						email_tamu.innerHTML = val['email_tamu'];

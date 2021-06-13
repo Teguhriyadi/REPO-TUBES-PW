@@ -44,7 +44,7 @@ include '../config/koneksi.php';
 				</li>
 				<li>
 					<a href="?page=kamar">
-						<span class="icon"><i class="fa fa-envelope-open"></i></span>
+						<span class="icon"><i class="fa fa-map"></i></span>
 						<span class="title">Kamar</span>
 					</a>
 				</li>
@@ -55,14 +55,20 @@ include '../config/koneksi.php';
 					</a>
 				</li>
 				<li>
-					<a href="#">
-						<span class="icon"><i class="fa fa-pencil"></i></span>
+					<a href="?page=reservasi">
+						<span class="icon"><i class="fa fa-edit"></i></span>
+						<span class="title">Reservasi</span>
+					</a>
+				</li>
+				<li>
+					<a href="?page=transaksi">
+						<span class="icon"><i class="fa fa-money"></i></span>
 						<span class="title">Transaksi</span>
 					</a>
 				</li>
 				<li>
 					<a href="?page=users">
-						<span class="icon"><i class="fa fa-user"></i></span>
+						<span class="icon"><i class="fa fa-users"></i></span>
 						<span class="title">Users</span>
 					</a>
 				</li>

@@ -46,9 +46,10 @@
 
 					let response = this.responseText;
 					if(response == 1){
+						
 						alert("Berhasil Login");
-						window.location.replace("?page=booking");
-						//loadEmployees();
+						window.location.replace("?page=dashboard");
+
 					} else {
 						alert("Gagal Login");
 
@@ -63,3 +64,4 @@
 		}
 	}
 </script>
+

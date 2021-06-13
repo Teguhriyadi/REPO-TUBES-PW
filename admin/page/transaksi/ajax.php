@@ -13,21 +13,25 @@ if(isset($_GET['request'])){
 if($request == 1){
 
    // Select record 
-	$sql = "SELECT * FROM users ORDER BY username ASC";
+	$sql = "SELECT * FROM reservasi ORDER BY kode_reservasi ASC";
 	$employeeData = mysqli_query($con,$sql);
 
 	$response = array();
 	
 	$no = 1;
-	$sesi = $_SESSION['login'];
 	while($row = mysqli_fetch_assoc($employeeData)){
 		$response[] = array(
 			"no"	  => $no++,
-			"id_users" => $row['id_users'],
-			"username" => $row['username'],
-			"created_at" => $row['created_at'],
-			"last_login" => $row['last_login'],
-			"level" => $row['level']
+			"kode_reservasi" => $row['kode_reservasi'],
+			"email_tamu" => $row['email_tamu'],
+			"check_in" => $row['check_in'],
+			"check_out" => $row['check_out'],
+			"jumlah_tamu" => $row['jumlah_tamu'],
+			"pesan" => $row['pesan'],
+			"id_tipe" => $row['id_tipe'],
+			"no_kamar" => $row['no_kamar'],
+			"status" => $row['status'],
+			"total" => $row['total']
 		);
 	}
 

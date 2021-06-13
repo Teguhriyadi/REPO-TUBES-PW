@@ -4,15 +4,12 @@ include '../../../config/koneksi.php';
 
 $request = 3;
 
-// Read $_GET value
 if(isset($_GET['request'])){
 	$request = $_GET['request'];
 }
 
-// Fetch records 
 if($request == 1){
 
-   // Select record 
 	$sql = "SELECT * FROM kamar JOIN tipe_kamar ON kamar.id_tipe = tipe_kamar.id_tipe ORDER BY kamar.no_kamar ASC";
 	$employeeData = mysqli_query($con,$sql);
 
@@ -33,10 +30,8 @@ if($request == 1){
 	exit;
 }
 
-// Insert record
 if($request == 2){
 
-   // Read POST data
 	$data = json_decode(file_get_contents("php://input"));
 
 	$no_kamar = $data->no_kamar;

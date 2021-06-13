@@ -1,6 +1,6 @@
 <div class="header">
-	<span class="icon"><i class="fa fa-bars"></i></span>
-	<span class="title">Tipe Kamar</span>
+	<span class="icon"><i class="fa fa-map"></i></span>
+	<span class="title">Kamar</span>
 </div>
 <br>
 
@@ -15,7 +15,7 @@
 		<br>
 		<div class="form-group">
 			<label for="no_kamar"> No. Kamar </label>
-			<input type="text" id="no_kamar" class="form-control" placeholder="Masukkan No. Kamar">
+			<input type="text" id="no_kamar" class="form-control" placeholder="Masukkan No. Kamar" autocomplete="off">
 		</div>
 		<div class="form-group">
 			<label for="tipe_kamar"> Tipe Kamar </label>
@@ -25,11 +25,11 @@
 		</div>
 		<div class="form-group">
 			<label for="status"> Status </label>
-			<input type="text" id="status" class="form-control" placeholder="Status">
+			<input type="text" id="status" class="form-control" placeholder="Status" autocomplete="off">
 		</div>
 		<div class="form-group">
 			<label for="lantai"> Lantai </label>
-			<input type="text" id="lantai" class="form-control" placeholder="Masukkan Lantai">
+			<input type="number" id="lantai" class="form-control" placeholder="0" autocomplete="off" min="1">
 		</div>
 		<div class="form-group">
 			<button onclick="insert()" id="btn" class="btn-primary">
@@ -46,15 +46,15 @@
 	<div class="recentOrders">
 		<div class="cardHeader">
 			<h2>Data Kamar</h2>
-			<a href="?page=tambah_tipe_kamar" class="btn"><i class="fa fa-plus"></i> Tambah Data</a>
 		</div>
 		<table id="data">
 			<thead>
 				<tr>
 					<td>No.</td>
+					<td>No. Kamar</td>
 					<td>Tipe Kamar</td>
-					<td>Harga</td>
-					<td>Jumlah Bed</td>
+					<td>Status</td>
+					<td>Lantai</td>
 					<td>Aksi</td>
 				</tr>
 			</thead>
@@ -92,12 +92,14 @@
 
 						let NewRow = empTable.insertRow(-1);
 						let no = NewRow.insertCell(0);
-						let tipe_kamar = NewRow.insertCell(1);
-						let status = NewRow.insertCell(2);
-						let lantai = NewRow.insertCell(3);
-						let aksi_cell = NewRow.insertCell(4);
+						let no_kamar = NewRow.insertCell(1);
+						let tipe_kamar = NewRow.insertCell(2);
+						let status = NewRow.insertCell(3);
+						let lantai = NewRow.insertCell(4);
+						let aksi_cell = NewRow.insertCell(5);
 
 						no.innerHTML = val['nomer'];
+						no_kamar.innerHTML = val['no_kamar'];
 						tipe_kamar.innerHTML = val['tipe_kamar'];
 						status.innerHTML = val['status'];
 						lantai.innerHTML = val['lantai'];
@@ -146,7 +148,7 @@
 
 					let response = this.responseText;
 					if(response == 1){
-						alert("Insert successfully.");
+						alert("Data Berhasil di Tambahkan");
 
 
 						loadKamar();
@@ -155,6 +157,8 @@
 						document.getElementById("id_tipe").value = '';
 						document.getElementById("status").value = '';
 						document.getElementById("lantai").value = '';
+					} else {
+						alert("Data Gagal di Tambahkan");
 					}
 				}
 			};
@@ -178,7 +182,11 @@
 
 					let response = this.responseText;
 					if(response == 1){
-						alert("Delete successfully.");
+						alert("Data Berhasil di Hapus");
+
+						loadKamar();
+					} else {
+						alert("Data Gagal di Hapus");
 
 						loadKamar();
 					}
@@ -241,6 +249,8 @@
 		let id_tipe = document.getElementById('id_tipe').value;
 		let status = document.getElementById('status').value;
 		let lantai = document.getElementById('lantai').value;
+		let label_tambah = document.getElementById("label_tambah");
+		let label_update = document.getElementById('label_update');
 		let btn_edit = document.getElementById('btn_edit');
 		let btn_update = document.getElementById('btn_update');
 
@@ -257,7 +267,7 @@
 
 					let response = this.responseText;
 					if(response == 1){
-						alert("Update successfully.");
+						alert("Data Berhasil di Ubah");
 
 						loadKamar();
 
@@ -266,8 +276,12 @@
 						document.getElementById("status").value = '';
 						document.getElementById("lantai").value = '';
 
+						label_tambah.hidden = false;
+						label_update.hidden = true;
 						btn.hidden = false;
 						btn_update.hidden = true;
+					} else {
+						alert("Data Gagal di Ubah");
 					}
 				}
 			};

@@ -35,8 +35,10 @@
 			<label for="jumlah_bed"> Jumlah Bed </label>
 			<input type="number" class="form-control" id="jumlah_bed" placeholder="0">
 		</div>
+
 		<div id="ganti_gambar" hidden>
 			<div class="form-group">
+				<label for="gambar"> Gambar </label>
 				<div id="tampil_gambar">
 					
 				</div>
@@ -61,7 +63,6 @@
 	<div class="recentOrders">
 		<div class="cardHeader">
 			<h2>Data Tipe Kamar</h2>
-			<a href="?page=tambah_tipe_kamar" class="btn"><i class="fa fa-plus"></i> Tambah Data</a>
 		</div>
 		<table id="data">
 			<thead>
@@ -186,7 +187,7 @@
 		let konfirmasi = confirm("Yakin ? Mau di Hapus ?");
 
 		if (konfirmasi) {
-			xhttp.open("GET", "http://localhost/LATIHAN-TUBES/admin/page/tipe_kamar/ajax.php?request=3&id_tipe="+id_tipe, true);
+			xhttp.open("GET", "http://localhost/REPO-TUBES-PW/admin/page/tipe_kamar/ajax.php?request=3&id_tipe="+id_tipe, true);
 
 			xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
@@ -246,7 +247,8 @@
 						fasilitas.value = val['fasilitas'];
 						harga.value = val['harga']; 
 						jumlah_bed.value = val['jumlah_bed'];
-						document.getElementById("tampil_gambar").innerHTML = '<img src="image/'+val['image']+'">';
+						document.getElementById("tampil_gambar").innerHTML = '<img width="100" src="image/'+val['image']+'">';
+						document.getElementById("image_lama").value = val['image'];
 						document.getElementById("id_tipe").value = val['id_tipe'];
 
 					}
@@ -259,48 +261,19 @@
 	}
 
 	function update() {
-		let files = document.getElementById("image").files;
-		let id_tipe = document.getElementById("id_tipe").value;
-		let harga = document.getElementById("harga").value;
-
-		if (files.length > 0) {
-			let formData = new FormData();
-
-			formData.append("image", files[0]);
-			formData.append("id_tipe", id_tipe);
-			formData.append("harga", harga);
-
-			let xhttp = new XMLHttpRequest();
-
-			xhttp.open("POST", "http://localhost/REPO-TUBES-PW/admin/page/tipe_kamar/ajax.php?request=5", true);
-
-			xhttp.onreadystatechange = function () {
-				if (this.readyState == 4 && this.status == 200) {
-					var response = this.responseText;
-
-					if (response == 1) {
-						alert("Upload Sukses");
-
-						loadTipeKamar();
-
-					} else {
-						alert("Upload Gagal");
-					}
-				}
-			};
-
-			xhttp.send(formData);
-		}
-		
-		/*
-		let files = document.getElementById("image").files;
-		let id_tipe = document.getElementById("id_tipe").value;
-		let image_lama = document.getElementById("image_lama").value;
-		let tipe_kamar = document.getElementById("tipe_kamar").value;
-		let deskripsi = document.getElementById("deskripsi").value;
-		let fasilitas = document.getElementById("fasilitas").value;
-		let harga = document.getElementById("harga").value;
-		let jumlah_bed = document.getElementById("jumlah_bed").value;
+		let id_tipe = document.getElementById('id_tipe').value;
+		let image_lama = document.getElementById('image_lama').value;
+		let tipe_kamar = document.getElementById('tipe_kamar').value;
+		let deskripsi = document.getElementById('deskripsi').value;
+		let fasilitas = document.getElementById('fasilitas').value;
+		let harga = document.getElementById('harga').value;
+		let jumlah_bed = document.getElementById('jumlah_bed').value;
+		let files = document.getElementById('image').files;
+		let label_tambah = document.getElementById('label_tambah');
+		let label_update = document.getElementById('label_update');
+		let ganti_gambar = document.getElementById('ganti_gambar');
+		let btn = document.getElementById('btn');
+		let btn_edit = document.getElementById('btn_edit');
 
 		if (files.length > 0) {
 			let formData = new FormData();
@@ -315,18 +288,16 @@
 			formData.append("jumlah_bed", jumlah_bed);
 
 			let xhttp = new XMLHttpRequest();
-
 			xhttp.open("POST", "http://localhost/REPO-TUBES-PW/admin/page/tipe_kamar/ajax.php?request=5", true);
-
 			xhttp.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
-					var response = this.responseText;
-
+					let response = this.responseText;
 					if (response == 1) {
-						alert("Upload Sukses");
-
+						alert("Data Berhasl di Ubah");
 						loadTipeKamar();
 
+						document.getElementById("id_tipe").value = "";
+						document.getElementById("image_lama").value = "";
 						document.getElementById("tipe_kamar").value = "";
 						document.getElementById("deskripsi").value = "";
 						document.getElementById("fasilitas").value = "";
@@ -334,18 +305,18 @@
 						document.getElementById("jumlah_bed").value = "";
 						document.getElementById("image").value = "";
 
+						ganti_gambar.hidden = true;
+						label_tambah.hidden = false;
+						label_update.hidden = true;
+						btn.hidden = false;
+						btn_update.hidden = true;
 					} else {
-						alert("Upload Gagal");
+						alert("Data Gagal di Ubah");
 					}
 				}
 			};
-
 			xhttp.send(formData);
-		} else {
-			alert("Pilih Gambar");
 		}
-	
-		*/
 	}
 	
 </script>

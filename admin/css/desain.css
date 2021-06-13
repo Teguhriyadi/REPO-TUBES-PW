@@ -442,7 +442,7 @@ body {
         left: -300px;
     }
 
-    .navigation .active {
+    .navigation.active {
         left: 0;
         width: 300px;
     }
@@ -452,7 +452,7 @@ body {
         left: 0;
     }
 
-    .main .active {
+    .main.active {
         width: calc(100% - 300px);
         left: 300px;
     }
