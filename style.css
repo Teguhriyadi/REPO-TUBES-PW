@@ -20,12 +20,74 @@ body{
 	gap: 10px;
 }
 
+.form-group {
+    padding-bottom: 20px;
+}
+
+.control-label {
+    position: relative;
+    display: block;
+    font-size: 15px;
+    padding-bottom: 5px;
+}
+
+.form-control {
+    position: relative;
+    width: 100%;
+    padding: 7px;
+    font-size: 16px;
+    box-shadow: 5px;
+}
+
+.btn-primary {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: darkblue;   
+}
+
+.btn-warning {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-warning:hover {
+    background-color: yellow;   
+}
+
+.btn-danger {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background-color: darkred;   
+}
+
 .header{
 	display: grid;
 	grid-template-areas: 
 	'hero hero feature-1'
 	'hero hero feature-2';
 }
+
 
 .hero{
 	grid-area: hero;

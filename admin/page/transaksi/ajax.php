@@ -4,15 +4,12 @@ include '../../../config/koneksi.php';
 
 $request = 3;
 
-// Read $_GET value
 if(isset($_GET['request'])){
 	$request = $_GET['request'];
 }
 
-// Fetch records 
 if($request == 1){
 
-   // Select record 
 	$sql = "SELECT * FROM reservasi ORDER BY kode_reservasi ASC";
 	$employeeData = mysqli_query($con,$sql);
 

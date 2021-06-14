@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Jun 2021 pada 12.58
+-- Waktu pembuatan: 14 Jun 2021 pada 18.38
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.2
 
@@ -40,11 +40,7 @@ CREATE TABLE `kamar` (
 --
 
 INSERT INTO `kamar` (`no_kamar`, `id_tipe`, `status`, `lantai`) VALUES
-('1', 93, 'Tersedia', 1),
-('100', 93, 'Booking', 20),
-('12', 2, 'booking', 2),
-('2', 93, 'Tersedia', 1),
-('4', 93, 'Tersedia', 1);
+('1', 2, 'Tersedia', 1);
 
 -- --------------------------------------------------------
 
@@ -53,11 +49,10 @@ INSERT INTO `kamar` (`no_kamar`, `id_tipe`, `status`, `lantai`) VALUES
 --
 
 CREATE TABLE `reservasi` (
-  `kode_reservasi` varchar(100) NOT NULL,
+  `kode_reservasi` int(100) NOT NULL,
   `email_tamu` varchar(30) NOT NULL,
   `check_in` date NOT NULL,
   `check_out` date DEFAULT NULL,
-  `jumlah_kamar` int(2) NOT NULL,
   `jumlah_tamu` int(100) NOT NULL,
   `pesan` varchar(255) DEFAULT NULL,
   `id_tipe` int(11) NOT NULL,
@@ -65,6 +60,13 @@ CREATE TABLE `reservasi` (
   `status` varchar(100) DEFAULT NULL,
   `total` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `reservasi`
+--
+
+INSERT INTO `reservasi` (`kode_reservasi`, `email_tamu`, `check_in`, `check_out`, `jumlah_tamu`, `pesan`, `id_tipe`, `no_kamar`, `status`, `total`) VALUES
+(1, 'sahrul@gmail.com', '2021-06-14', '2021-06-15', 1, 'Bagus', 1, 1, 'Pending', 10);
 
 -- --------------------------------------------------------
 
@@ -77,6 +79,13 @@ CREATE TABLE `reservasi_ruangan` (
   `kode_reservasi` varchar(100) NOT NULL,
   `no_kamar` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `reservasi_ruangan`
+--
+
+INSERT INTO `reservasi_ruangan` (`id_reservasi_ruangan`, `kode_reservasi`, `no_kamar`) VALUES
+(1, '1', 1);
 
 -- --------------------------------------------------------
 
@@ -97,15 +106,11 @@ CREATE TABLE `tamu` (
 --
 
 INSERT INTO `tamu` (`no_identitas`, `nama_tamu`, `email_tamu`, `telp_tamu`, `password_tamu`) VALUES
-('12345', 'Ahmad Fauzi', 'ahmad@gmail.com', '12345', '111\r\n'),
-('123456789', 'ilham', 'ilham.teguh55@gmail.com', '12345', '$2y$10$Aamgpqpty9fs53W9vbp40uLL1iJg7cSoXeOquZDUpMpGPcNGSPPhW'),
-('29092002', 'mohammad', 'ilham.teguh55@gmail.com', '12345', 'mohammad'),
-('444444', 'alan', 'alan@gmail.com', '212', '$2y$10$LU8Nx5LkZMDrLO8.02gt8ufiBUbVCDtLa806K2g3c29Wpdev3GWCW'),
-('6', '6', '6', '6', '$2y$10$jfI3MvXUVMaEuRmn/vsMg.r2aX0tqp2RRYCtQ.n02KYmCA1RLnXZ6'),
-('7', '7', '7', '7', '7'),
-('8192182', 'efefh', 'hefu3hf', '2901', 'fnef'),
-('9', '9', '9', '9', '9'),
-('tamu', 'tamu', 'tamu', 'tamu', '$2y$10$YWiHHyAEuZu5lXM0HXLA7.8/UVf2yLb2Vcyhm8USTMI/0yc8fZlx6');
+('06012001', 'Farhan M Adi Yanuar', 'farhan@gmail.com', '12345', '$2y$10$VfOQDd8.q/u/vtLEnK/LQuvZ4o0R584IkiMIk7H6AqZYpbPh/IWDa'),
+('12345', 'tamu', 'tamu@gmail.com', '12345', '$2y$10$3QbOH2.NkDGdHp8Sek9KhOqZs7ODzVPwbNFr7dIHCDql3JGFF1GIO'),
+('1234567890', 'Feby Maulana H', 'feby@gmail.com', '12345', '$2y$10$6WRq60Q108KjCQ9sc5ACTOuGQxzAv2ZfzQp7WbIeXKVx8Di.i4dPe'),
+('29092002', 'ahmadfauzi', 'ahmadfauzi@gmail.com', '12345', '$2y$10$EPFpmKvlmCETodG7hqWh7eZXuH3wS2yeH/TmZZahJPJhlz9FU2FDi'),
+('sahrul', 'sahrul', 'sahrul@gmail.com', '1234', '$2y$10$PS.FzzeXBPsWN3qE3B5HjeTvcJoZ/JZPmGH8nA3sYuSlDgXOQz42.');
 
 -- --------------------------------------------------------
 
@@ -123,6 +128,15 @@ CREATE TABLE `tipe_kamar` (
   `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `tipe_kamar`
+--
+
+INSERT INTO `tipe_kamar` (`id_tipe`, `tipe_kamar`, `deskripsi`, `fasilitas`, `harga`, `jumlah_bed`, `image`) VALUES
+(1, 'ELITE Room', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Handuk, Bed Cover', 150000, 2, '60c59b7ef29db.jpg'),
+(2, 'VIP Room', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Handuk, Bed Cover', 200000, 2, '60c59bd3c698a.jpg'),
+(3, 'Standar Room', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Handuk', 5000, 2, '60c5b8a5d3d57.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -133,9 +147,7 @@ CREATE TABLE `transaksi` (
   `no_check_in` int(11) NOT NULL,
   `tgl_check_in` date DEFAULT NULL,
   `tgl_check_out` date DEFAULT NULL,
-  `total_pembayaran` double NOT NULL,
-  `uang_muka_kamar` double NOT NULL,
-  `pelunasan_kamar` double NOT NULL
+  `total_pembayaran` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -148,8 +160,8 @@ CREATE TABLE `users` (
   `id_users` int(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `last_login` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_login` datetime DEFAULT '0000-00-00 00:00:00',
   `level` int(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -158,7 +170,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_users`, `username`, `password`, `created_at`, `last_login`, `level`) VALUES
-(44, 'hame', '$2y$10$aNhtw6Q50veIZK03FRIRoOsPeHsNiTosOM9vxlDsDdQUyCt70qwCC', '2021-06-09 05:32:05', '2021-06-12 02:22:44', 1);
+(44, 'hame', '$2y$10$aNhtw6Q50veIZK03FRIRoOsPeHsNiTosOM9vxlDsDdQUyCt70qwCC', '2021-06-09 05:32:05', '2021-06-13 12:00:57', 1),
+(47, '1', '$2y$10$nce08R3pR6OzdASLBKDlhuwz2LpaYwRofHIFaLkCB/CxvAeTQBX.u', '2021-06-13 04:43:08', '0000-00-00 00:00:00', 1);
 
 --
 -- Indexes for dumped tables
@@ -211,22 +224,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `reservasi`
+--
+ALTER TABLE `reservasi`
+  MODIFY `kode_reservasi` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT untuk tabel `reservasi_ruangan`
 --
 ALTER TABLE `reservasi_ruangan`
-  MODIFY `id_reservasi_ruangan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_reservasi_ruangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `tipe_kamar`
 --
 ALTER TABLE `tipe_kamar`
-  MODIFY `id_tipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_tipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id_users` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

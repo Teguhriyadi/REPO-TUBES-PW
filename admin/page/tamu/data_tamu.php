@@ -16,7 +16,6 @@
 					<td>No. Identitas</td>
 					<td>Nama Tamu</td>
 					<td>Email Tamu</td>
-					<td>Telp Tamu</td>
 				</tr>
 			</thead>
 			<tbody id="table">
@@ -56,13 +55,11 @@
 						let no_identitas = NewRow.insertCell(1);
 						let nama_tamu = NewRow.insertCell(2);
 						let email_tamu = NewRow.insertCell(3);
-						let telp_tamu = NewRow.insertCell(4);
 
 						no.innerHTML = val['nomer'];
 						no_identitas.innerHTML = val['no_identitas'];
 						nama_tamu.innerHTML = val['nama_tamu'];
 						email_tamu.innerHTML = val['email_tamu'];
-						telp_tamu.innerHTML = val['telp_tamu'];
 					}
 				}
 			}

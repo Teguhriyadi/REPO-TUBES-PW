@@ -36,16 +36,7 @@
 			<i class="fas fa-lock"></i>
 			<input type="password" placeholder="Password" id="password" name="password"  autocomplete="off">
 		</div>
-
-    <button id="btn">
-      Login
-    </button>
-
-		<div style="text-align: center;">
-			<a href="register.php" style="text-decoration: none; color: blue;">
-				Belum Punya Akun ?
-			</a>
-		</div>
+		<button id="btn" name="login" class="btn-login">Login</button>
 	</div>
 
 	<script type="text/javascript">

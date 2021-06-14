@@ -14,9 +14,9 @@
 				<tr>
 					<td>No.</td>
 					<td>No. Identitas</td>
-					<td>Nama Tamu</td>
 					<td>Email Tamu</td>
-					<td>Telp Tamu</td>
+					<td>Check In</td>
+					<td>Check Out</td>
 				</tr>
 			</thead>
 			<tbody id="table">
@@ -53,16 +53,16 @@
 
 						let NewRow = empTable.insertRow(-1);
 						let no = NewRow.insertCell(0);
-						let no_identitas = NewRow.insertCell(1);
-						let nama_tamu = NewRow.insertCell(2);
-						let email_tamu = NewRow.insertCell(3);
-						let telp_tamu = NewRow.insertCell(4);
+						let kode_reservasi = NewRow.insertCell(1);
+						let email_tamu = NewRow.insertCell(2);
+						let check_in = NewRow.insertCell(3);
+						let check_out = NewRow.insertCell(4);
 
 						no.innerHTML = val['no'];
-						no_identitas.innerHTML = val['no_identitas'];
-						nama_tamu.innerHTML = val['nama_tamu'];
+						kode_reservasi.innerHTML = val['kode_reservasi'];
 						email_tamu.innerHTML = val['email_tamu'];
-						telp_tamu.innerHTML = val['telp_tamu'];
+						check_in.innerHTML = val['check_in'];
+						check_out.innerHTML = val['check_out'];
 					}
 				}
 			}

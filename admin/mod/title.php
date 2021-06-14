@@ -20,6 +20,18 @@
 			echo "Kamar";
 			break;
 
+		case 'tamu':
+			echo "Tamu";
+			break;
+
+		case 'reservasi':
+			echo "Reservasi";
+			break;
+
+		case 'transaksi':
+			echo 'Transaksi';
+			break;
+
 		case 'users':
 			echo "Users";
 			break;
